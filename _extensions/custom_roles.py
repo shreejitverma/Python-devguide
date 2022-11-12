@@ -19,10 +19,7 @@ def setup(app):
 
 def autolink(pattern):
     def role(name, rawtext, text, lineno, inliner, options={}, content=[]):
-        if " " in text:
-            url_text = urllib.parse.quote(f"{text}")
-        else:
-            url_text = text
+        url_text = urllib.parse.quote(f"{text}") if " " in text else text
         url = pattern % (url_text,)
         node = nodes.reference(rawtext, text, refuri=url, **options)
         return [node], []
